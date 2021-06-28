@@ -177,14 +177,39 @@ public class FXMLController
 		Collection<List<Match>> bestPaths = 
 					this.model.getBestPathsBetween(selectedMatch1, selectedMatch2);
 		
-		String output = this.printBestPaths(bestPaths);
+		String output = this.printBestPaths(bestPaths, selectedMatch1, selectedMatch2);
 		this.txtResult.setText(output);
     }
 
-    private String printBestPaths(Collection<List<Match>> bestPaths)
+    private String printBestPaths(Collection<List<Match>> bestPaths, Match match1, Match match2)
 	{
-		// TODO implement method
-		return null;
+		if(bestPaths.isEmpty())
+			return "Non esistono percorsi migliori tra i 2 match: " +
+				match1.toString() + " e " + match2.toString();
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("Percorsi migliori tra ").append(match1.toString()).append(" e ").append(match2.toString()).append(":\n");
+		
+		int count = 0;
+		for(List<Match> bestPath : bestPaths)
+		{
+			count++;
+			
+			sb.append("\n").append("-".repeat(7)).append(" ").append(count).append(" ").append("-".repeat(7));
+			
+			int cnt = 0;
+			for(Match m : bestPath)
+			{
+				cnt++;
+				
+				sb.append("\n").append(cnt).append(") ").append(m);
+			}
+			
+			sb.append("\n");
+		}
+		
+		return sb.toString();
 	}
 
 	@FXML

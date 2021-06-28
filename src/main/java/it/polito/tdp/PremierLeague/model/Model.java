@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.jgrapht.Graph;
 import org.jgrapht.Graphs;
@@ -124,15 +125,18 @@ public class Model
 		List<Match> partialSolution = new ArrayList<>();
 		partialSolution.add(start);
 		
+		Set<Match> partialSolutionSet = new HashSet<>();	//overhead to increase performance in .remove()
+		partialSolutionSet.add(start);
+		
 		int currentWeight = 0;
 		
-		this.recursiveBestPathComputation(partialSolution, currentWeight, destination);
-		
+		this.recursiveBestPathComputation(partialSolution, partialSolutionSet, 
+														currentWeight, destination);
 		return this.bestPaths;
 	}
 
 	private void recursiveBestPathComputation(List<Match> partialSolution, 
-			int currentWeight, Match destination)
+			Set<Match> partialSolutionSet, int currentWeight, Match destination)
 	{
 		Match lastAddedMatch = partialSolution.get(partialSolution.size() - 1);
 		
@@ -158,14 +162,17 @@ public class Model
 			int weight = (int)this.graph.getEdgeWeight(nextEdge);
 			Match nextMatch = Graphs.getOppositeVertex(this.graph, nextEdge, lastAddedMatch);
 			
-			if(partialSolution.contains(nextMatch) || this.haveSameTeams(lastAddedMatch, nextMatch))
+			if(partialSolutionSet.contains(nextMatch) || this.haveSameTeams(lastAddedMatch, nextMatch))
 				continue;	//filtering branches
 			
 			partialSolution.add(nextMatch);
+			partialSolutionSet.add(nextMatch);
 			//recursive call
-			this.recursiveBestPathComputation(partialSolution, currentWeight + weight, destination);
+			this.recursiveBestPathComputation(partialSolution, partialSolutionSet, 
+													currentWeight + weight, destination);
 			
 			partialSolution.remove(partialSolution.size() - 1); //backtracking
+			partialSolutionSet.remove(nextMatch);
 		}
 	}
 
