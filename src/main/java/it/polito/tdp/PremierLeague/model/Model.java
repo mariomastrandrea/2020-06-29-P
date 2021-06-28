@@ -187,4 +187,9 @@ public class Model
 		return (match1Team1 == match2Team1 && match1Team2 == match2Team2) 	//A vs B - A vs B
 			|| (match1Team1 == match2Team2 && match1Team2 == match2Team1); 	//A vs B - B vs A 		
 	}
+
+	public int getBestWeight()
+	{
+		return this.maxWeight;
+	}
 }

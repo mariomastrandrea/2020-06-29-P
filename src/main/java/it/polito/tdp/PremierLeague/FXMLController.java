@@ -177,11 +177,13 @@ public class FXMLController
 		Collection<List<Match>> bestPaths = 
 					this.model.getBestPathsBetween(selectedMatch1, selectedMatch2);
 		
-		String output = this.printBestPaths(bestPaths, selectedMatch1, selectedMatch2);
+		int bestWeight = this.model.getBestWeight();
+		
+		String output = this.printBestPaths(bestPaths, selectedMatch1, selectedMatch2, bestWeight);
 		this.txtResult.setText(output);
     }
 
-    private String printBestPaths(Collection<List<Match>> bestPaths, Match match1, Match match2)
+    private String printBestPaths(Collection<List<Match>> bestPaths, Match match1, Match match2, int bestWeight)
 	{
 		if(bestPaths.isEmpty())
 			return "Non esistono percorsi migliori tra i 2 match: " +
@@ -208,6 +210,8 @@ public class FXMLController
 			
 			sb.append("\n");
 		}
+		
+		sb.append("\n*** Peso migliore: ").append(bestWeight);
 		
 		return sb.toString();
 	}
