@@ -2,7 +2,8 @@ package it.polito.tdp.PremierLeague.model;
 
 import java.time.LocalDateTime;
 
-public class Match {
+public class Match 
+{
 	Integer matchID;
 	Integer teamHomeID;
 	Integer teamAwayID;
@@ -16,8 +17,8 @@ public class Match {
 	LocalDateTime date;
 	
 	public Match(Integer matchID, Integer teamHomeID, Integer teamAwayID, Integer teamHomeFormation,
-			Integer teamAwayFormation, Integer resultOfTeamHome, LocalDateTime date, String teamHomeNAME, String teamAwayNAME) {
-		super();
+			Integer teamAwayFormation, Integer resultOfTeamHome, LocalDateTime date, String teamHomeNAME, String teamAwayNAME) 
+	{
 		this.matchID = matchID;
 		this.teamHomeID = teamHomeID;
 		this.teamAwayID = teamAwayID;
@@ -59,12 +60,6 @@ public class Match {
 	public void setTeamAwayFormation(Integer teamAwayFormation) {
 		this.teamAwayFormation = teamAwayFormation;
 	}
-	public Integer getReaultOfTeamHome() {
-		return resultOfTeamHome;
-	}
-	public void setReaultOfTeamHome(Integer resultOfTeamHome) {
-		this.resultOfTeamHome = resultOfTeamHome;
-	}
 	public LocalDateTime getDate() {
 		return date;
 	}
@@ -97,12 +92,14 @@ public class Match {
 	}
 
 	@Override
-	public String toString() {
+	public String toString() 
+	{
 		return "[" + matchID + "] " + teamHomeNAME + " vs. " + teamAwayNAME;
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode() 
+	{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((matchID == null) ? 0 : matchID.hashCode());
@@ -110,7 +107,8 @@ public class Match {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj) 
+	{
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -125,5 +123,4 @@ public class Match {
 			return false;
 		return true;
 	}
-	
 }
